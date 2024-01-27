@@ -11,6 +11,8 @@ type AppState = {
     messages: Message[];
     status: 'idle' | 'loading' | 'error';
     inputMessage: '';
+    currentTime: string;
+    isGameOver: 'true' | 'false';
 }
 
 const initAppState: AppState = {
@@ -21,6 +23,8 @@ const initAppState: AppState = {
     ],
     status: 'idle',
     inputMessage: '',
+    currentTime: '10:30',
+    isGameOver: 'false'
 }
 
 const AppStateContext = createContext(initAppState);

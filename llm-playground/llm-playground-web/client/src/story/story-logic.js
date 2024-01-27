@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useAppState, useSetAppState } from '../app-state/AppStateProvider';
 import Timer from '../utils/timer';
+import { ConcatenateTimes } from '../components/TimeDisplay';
 
 export function useHandleStoryResponse() {
     const { inputMessage } = useAppState();
@@ -15,6 +16,7 @@ export function useHandleStoryResponse() {
         if (!response) return;
 
         const newMessages = [...messages];
+        const { currentTime } = useAppState();
 
         // Test modifying the words limit:
         // if (!isNaN(parseInt(newMessage))) {
@@ -24,8 +26,9 @@ export function useHandleStoryResponse() {
         if (response.storyText) {
             newMessages.push({ role: 'assistant', content: response.storyText });
         }
-
-        setAppState({ messages: [...newMessages] });
+        const newTime = ConcatenateTimes(currentTime, response.actionTime);
+        console.log('Chat Current Time: ', response.currentTime, 'Action Time: ', response.actionTime, 'New Time: ', newTime);
+        setAppState({ messages: [...newMessages], currentTime: newTime, isGameOver : response.isGameOver});
 
         // TODO: end story with a long closing paragraph, and 'THE END' message.
         console.log('goal progress: ', response.goalProgress);

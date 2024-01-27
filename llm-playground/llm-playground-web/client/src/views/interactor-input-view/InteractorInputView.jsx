@@ -15,9 +15,8 @@ export default function InteractorInputView() {
     const send = useCallback(() => {
 
         const newMessages = [...messages, { role: 'user', content: inputMessage }];
-
         setAppState({ messages: newMessages, status: 'loading', inputMessage: '' });
-
+        
         fetch(
             `${SETTINGS.SERVER_URL}/story-completions`,
             {
@@ -27,25 +26,26 @@ export default function InteractorInputView() {
                 },
                 body: JSON.stringify(newMessages)
             }
-        ).then(response => response.json()
-        ).then(data => {
-            try {
-                let storytellerResponse = data.choices[0].message.content;
-                storytellerResponse = JSON.parse(storytellerResponse);
+            ).then(response => response.json()
+            ).then(data => {
+                try {
+                    let storytellerResponse = data.choices[0].message.content;
+                    storytellerResponse = JSON.parse(storytellerResponse);
 
                 setAppState({ status: 'idle' });
                 handleResponse(newMessages, storytellerResponse);
-
+                
             } catch { err => { throw err } }
         }).catch(err => {
             console.error('Api error. Details: ', err);
             setAppState({ status: 'error' });
         })
-
+        
     }, [messages, inputMessage]);
-
-
-
+    
+    const {isGameOver} = useAppState();;
+    const isBadToSend = (isGameOver === 'true' || inputMessage === '');
+    console.log("isGameOver: ",isGameOver);
     return (
         <div
             id="interactor-box"
@@ -58,10 +58,10 @@ export default function InteractorInputView() {
             <input
                 id="interactor-text-input"
                 value={inputMessage}
-                onKeyDown={e => { if (e.key === 'Enter') send() }}
+                onKeyDown={e => { if (e.key === 'Enter' && !isBadToSend) send() }}
                 onChange={e => setAppState({ inputMessage: e.target.value })}
             />
-            <button onClick={send}>Send</button>
+            <button disabled={isBadToSend} onClick={send}>Send</button>
             {
                 status === 'error' && 'Something is broken 😵‍💫'
             }
