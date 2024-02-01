@@ -31,7 +31,7 @@ export default function InteractorInputView() {
                 try {
                     let storytellerResponse = data.choices[0].message.content;
                     storytellerResponse = JSON.parse(storytellerResponse);
-
+                    console.log("storytellerResponse: ",storytellerResponse);
                 setAppState({ status: 'idle' });
                 handleResponse(newMessages, storytellerResponse);
                 
@@ -43,9 +43,8 @@ export default function InteractorInputView() {
         
     }, [messages, inputMessage]);
     
-    const {isGameOver} = useAppState();;
+    const {isGameOver} = useAppState();
     const isBadToSend = (isGameOver === 'true' || inputMessage === '');
-    console.log("isGameOver: ",isGameOver);
     return (
         <div
             id="interactor-box"

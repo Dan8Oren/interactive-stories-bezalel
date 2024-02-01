@@ -1,12 +1,28 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useAppState, useSetAppState } from '../app-state/AppStateProvider';
 import Timer from '../utils/timer';
-import { ConcatenateTimes } from '../components/TimeDisplay';
 
 export function useHandleStoryResponse() {
-    const { inputMessage } = useAppState();
+    const { inputMessage, currentTime } = useAppState();
     const setAppState = useSetAppState();
     const idleTimer = useRef();
+    const ConcatenateTimes = (currentTime, actionTime) => {
+        const [currentHours, currentMinutes] = currentTime.split(':').map(Number);
+        const [actionHours, actionMinutes] = actionTime.split(':').map(Number);
+        console.log('currentHours', currentHours, 'currentMinutes', currentMinutes);
+        console.log('actionHours', actionHours, 'actionMinutes', actionMinutes);
+        // Calculate the difference
+        let diffHours = actionHours + currentHours;
+        let diffMinutes = actionMinutes + currentMinutes;
+      
+        // Adjust if necessary for negative minutes
+        if (diffMinutes > 60) {
+          diffHours++;
+          diffMinutes -= 60;
+        }
+        console.log('diffHours', diffHours, 'diffMinutes', diffMinutes);
+        return `${diffHours}:${String(diffMinutes).padStart(2, '0')}`;      
+    };
 
     useEffect(() => {
         idleTimer.current?.cancel();
@@ -14,18 +30,11 @@ export function useHandleStoryResponse() {
 
     function handleStoryResponse(messages, response) {
         if (!response) return;
-
         const newMessages = [...messages];
-        const { currentTime } = useAppState();
-
-        // Test modifying the words limit:
-        // if (!isNaN(parseInt(newMessage))) {
-        //     newMessages.push({ role: 'system', content: `Your next storyText output has maximum length of ${newMessage} words.` })
-        // }
-
         if (response.storyText) {
             newMessages.push({ role: 'assistant', content: response.storyText });
         }
+        console.log('response.isGameOver', response.isGameOver);
         const newTime = ConcatenateTimes(currentTime, response.actionTime);
         console.log('Chat Current Time: ', response.currentTime, 'Action Time: ', response.actionTime, 'New Time: ', newTime);
         setAppState({ messages: [...newMessages], currentTime: newTime, isGameOver : response.isGameOver});

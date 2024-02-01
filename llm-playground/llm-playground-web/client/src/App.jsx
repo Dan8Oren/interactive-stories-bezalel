@@ -9,9 +9,9 @@ function App() {
 
   return (
     <AppStateProvider>
-      <h3>
+      <h1>
         {storyConfig.name || 'Open Story'}
-      </h3>
+      </h1>
       <TimeDisplay />
       <StoryBodyView />
       <InteractorInputView />
