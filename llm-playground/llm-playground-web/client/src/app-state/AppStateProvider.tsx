@@ -3,7 +3,7 @@ import { createContext, useContext, useState, Dispatch, SetStateAction, PropsWit
 import storyConfig from '../story/story-config';
 
 export type Message = {
-    role: 'system' | 'user' | 'assistant' | 'assistant1',
+    role: 'system' | 'user' | 'assistant',
     content: string
 }
 
