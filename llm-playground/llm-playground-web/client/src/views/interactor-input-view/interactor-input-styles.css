@@ -1,8 +1,10 @@
 #interactor-box {
     box-sizing: border-box;
-    width: 800px;
-    padding-bottom: 64px;
-    margin-inline: 24px;
+    top: 85%;
+    width: 65%;
+    height: 10%;
+    padding-bottom: 2%;
+    margin-inline: 2%;
     max-width: 100%;
     display: flex;
     gap: 4px;

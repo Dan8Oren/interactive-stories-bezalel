@@ -47,6 +47,7 @@ export default function InteractorInputView() {
     const isBadToSend = (isGameOver === 'true' || inputMessage === '');
     return (
         <div
+            className="inputContent"
             id="interactor-box"
             style={{
                 opacity: status === 'loading' ? 0.3 : 1,

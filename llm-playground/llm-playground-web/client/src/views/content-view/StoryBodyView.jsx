@@ -17,7 +17,7 @@ export default function StoryBodyView() {
     }, [messages])
 
     return (
-        <main ref={mainBodyContRef} id="main-body-cont">
+        <main className="content" ref={mainBodyContRef} id="main-body-cont">
             <div id="text-column-cont">
                 {messages.map((msg, i) => {
                     if (msg.role === 'system') return null;

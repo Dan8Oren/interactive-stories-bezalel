@@ -1,34 +1,43 @@
 #main-body-cont {
-    margin-top: 32px;
-    height: 100%;
-    width: 100%;
+    margin-top: 10%;
+    height: 62%;
+    width: 70%;
     box-sizing: border-box;
     overflow-y: scroll;
-    margin-bottom: 4px;
-    padding-inline: 24px;
+    margin-bottom: 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 #text-column-cont {
-    width: 800px;
+    width: 95%;
     padding-bottom: 24px;
 }
 
 .message-assistant {
-    color: #666;
+    color: white;
     font-style: italic;
+    margin-top: 1%;
 }
 
 .message-user {
-    font-family: sans-serif;
-    color: #0c1b71;
+    font-family: Comic Sans MS;
+    color: rgb(118, 177, 0);
+    margin-top: 1%;
 }
 
-.call-to-action {
-    font-family: sans-serif;
-    color: #aaa;
+.message-end {
+    font-family: Impact;
+    color: rgb(214, 0, 0);
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.message-call-to-action {
+    color: #c99a00;
+    font-style: italic;
+    margin-top: 1%;
 }
 
 @media only screen and (max-width: 600px) {

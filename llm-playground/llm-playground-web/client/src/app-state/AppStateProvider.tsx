@@ -3,7 +3,7 @@ import { createContext, useContext, useState, Dispatch, SetStateAction, PropsWit
 import storyConfig from '../story/story-config';
 
 export type Message = {
-    role: 'system' | 'user' | 'assistant',
+    role: 'system' | 'user' | 'assistant' | 'assistant1',
     content: string
 }
 
@@ -23,7 +23,7 @@ const initAppState: AppState = {
     ],
     status: 'idle',
     inputMessage: '',
-    currentTime: '10:30',
+    currentTime: '21:00',
     isGameOver: 'false'
 }
 
